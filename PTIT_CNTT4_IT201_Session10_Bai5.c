@@ -6,8 +6,13 @@ typedef struct Node {
     struct Node* next;
 } Node;
 
+// FIXED: Thêm kiểm tra lỗi cấp phát bộ nhớ
 Node* createNode(int data) {
     Node* newNode = (Node*)malloc(sizeof(Node));
+    if (newNode == NULL) {
+        printf("Cap phat bo nho khong thanh cong!\n");
+        exit(1);
+    }
     newNode->data = data;
     newNode->next = NULL;
     return newNode;
@@ -67,6 +72,13 @@ int main() {
 
     printf("Danh sach sau khi kiem tra %d:\n", target);
     printList(head);
+
+    Node* temp;
+    while (head != NULL) {
+        temp = head;
+        head = head->next;
+        free(temp);
+    }
 
     return 0;
 }
