@@ -5,6 +5,7 @@ typedef struct Node {
     int data;
     struct Node* next;
 } Node;
+
 //Ham them vao dau
 Node* createNode(int value) {
     Node* newNode = (Node*)malloc(sizeof(Node));
@@ -13,9 +14,12 @@ Node* createNode(int value) {
     return newNode;
 }
 
-// Hàm them vao cuoi
-void addToEnd(Node* head, int value) {
-    Node* current = head;
+void addToEnd(Node** head, int value) {
+    if (*head == NULL) {
+        *head = createNode(value);
+        return;
+    }
+    Node* current = *head;
     while (current->next != NULL) {
         current = current->next;
     }
@@ -53,12 +57,12 @@ int main() {
     printf("Nhap so nguyen duong bat ky: ");
     scanf("%d", &value);
 
-    if (value <0) {
+    if (value < 0) {
         printf("So nguyen duong khong hop le!");
         return 0;
     }
 
-    addToEnd(n1, value);
+    addToEnd(&n1, value);
 
     // In khi them vao cuoi
     printList(n1);
